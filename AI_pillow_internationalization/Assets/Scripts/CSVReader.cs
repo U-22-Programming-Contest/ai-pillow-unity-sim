@@ -63,15 +63,26 @@ public class CSVReader : MonoBehaviour
         return latestPressures;
     }
 
-
-
     IEnumerator MoveHead()
     {
         while (currentIndex < headPositions.Count)
         {
-            headObject.transform.position = headPositions[currentIndex];
+            Vector3 startPos = headObject.transform.position;
+            Vector3 endPos = headPositions[currentIndex];
+            float elapsed = 0f;
+            float duration = 0.5f; // 0.5秒で1ステップ分移動
+
+            // 座標を補間してスムーズに移動
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                headObject.transform.position = Vector3.Lerp(startPos, endPos, t);
+                yield return null;
+            }
+
             currentIndex++;
-            yield return new WaitForSeconds(0.5f); // 0.5秒ごとに更新
         }
     }
+
 }
