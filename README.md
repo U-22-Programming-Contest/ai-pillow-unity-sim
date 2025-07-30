@@ -1,5 +1,7 @@
 # ai-pillow-unity-sim
 
+<img width="1087" height="611" alt="Image" src="https://github.com/user-attachments/assets/d91c9469-eeb7-48e5-834d-29c4066d6068" />
+
 ## 目次
 
 1. [概要](#概要)
@@ -118,6 +120,8 @@ Sensor 1-4 Position : 枕のローカル座標系における各センサーの�
 
 ### 実行
 Unityエディタの上部にある再生ボタンを押して、シミュレーションを開始します。
+以下は実行した際の動画のURLです。
+https://drive.google.com/file/d/1BBuv1_gidWcVMfVBs-1obhIjkYayXYIf/view?usp=drive_link
 
 
 ## 開発者
