@@ -3,7 +3,7 @@
 public class PillowHeatmapTexture : MonoBehaviour
 {
     public Renderer pillowRenderer; // 枕のRenderer
-    public int textureSize = 256;   // テクスチャ解像度
+    public int textureSize = 20;   // テクスチャ解像度，増加でより鮮明化
     public Vector2 uvCenter;        // ヒートの中心 (UV 0~1)
     public float heatRadius = 0.5f; // ヒートの影響範囲 (0~1のUV距離)
 
@@ -17,7 +17,7 @@ public class PillowHeatmapTexture : MonoBehaviour
         heatmapTex.wrapMode = TextureWrapMode.Clamp;
         pillowRenderer.material.mainTexture = heatmapTex;
         Vector3 localScale = pillowTransform.localScale;
-        pillowSize = new Vector2(localScale.x, localScale.z);  // 横幅（X）と奥行き（Z）
+        pillowSize = new Vector2(localScale.x, localScale.z);  // 横幅と奥行き
 
 
         UpdateHeatmapTexture();
@@ -61,9 +61,9 @@ public class PillowHeatmapTexture : MonoBehaviour
 
     Color GetThermalColor(float t)
     {
-        // 赤→橙→黄→緑→青の簡易グラデーション
+        // 赤→オレンジ→黄→緑→青の簡易グラデーション
         if (t > 0.8f) return Color.red;
-        else if (t > 0.6f) return new Color(1f, 0.5f, 0f); // Orange
+        else if (t > 0.6f) return new Color(1f, 0.5f, 0f); // オレンジ
         else if (t > 0.4f) return Color.yellow;
         else if (t > 0.2f) return Color.green;
         else return Color.blue;

@@ -8,9 +8,8 @@ public class CSVReader : MonoBehaviour
     public GameObject headObject;
 
     public PillowHeatmapTexture pillowHeatmap;  // ヒートマップ表示スクリプト
-    public Transform planeTransform;           // 枕の親オブジェクト（例: pillowRoot）
-    public Vector2 pillowSize = new Vector2(0.5f, 0.3f);  // 実寸サイズ（自動取得するのでInspector入力は不要）
-
+    public Transform planeTransform;           // 枕の親オブジェクト（Pillowroot）
+    public Vector2 pillowSize = new Vector2(0.5f, 0.3f);  // 枕の実寸サイズ
     public Vector3 sensor1Position;
     public Vector3 sensor2Position;
     public Vector3 sensor3Position;
@@ -24,25 +23,22 @@ public class CSVReader : MonoBehaviour
 
     IEnumerator Start()
     {
-        // 1フレーム待つことで他オブジェクトの初期化を保証
-        yield return null;
+        // カメラの動きに合わせるために指定時間待機
+        yield return new WaitForSeconds(2.5f);
 
         // planeTransformにアタッチされているRendererコンポーネントを取得
         Renderer pillowRenderer = planeTransform.GetComponent<Renderer>();
 
         if (pillowRenderer != null)
         {
-            // ★★★ 修正点 ★★★
-            // localScaleの代わりに、Rendererのバウンディングボックス（bounds）から
-            // ワールド空間での正確なサイズを取得します。
+            // localScaleの代わりに、Rendererのバウンディングボックス（bounds）からワールド空間での正確なサイズを取得
             Vector3 worldSize = pillowRenderer.bounds.size;
             pillowSize = new Vector2(worldSize.x, worldSize.z);
         }
         else
         {
-            // もしRendererが見つからなかった場合のエラー処理
+            // Rendererが見つからなかった場合のエラー処理
             Debug.LogError("planeTransformにRendererコンポーネントが見つかりません。サイズを正しく取得できません。");
-            // 従来の方法に戻す
             pillowSize = new Vector2(planeTransform.localScale.x, planeTransform.localScale.z);
         }
 
@@ -98,7 +94,7 @@ public class CSVReader : MonoBehaviour
                 pillowHeatmap.SetCenter(uvCenter);
             }
 
-            // sleep_postureに基づく回転
+            // sleep_postureの値に基づいて回転
             Quaternion baseRotation = Quaternion.Euler(90f, 0f, 0f);
             Quaternion rotation = baseRotation;
 
